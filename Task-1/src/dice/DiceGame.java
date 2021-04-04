@@ -131,9 +131,9 @@ public class DiceGame {
             winner = this.scores[i] > this.scores[winner] ? i : winner;
         }
         if (winner < this.n - 1) {
-            System.out.printf("=== Игрок %d победил! ===", winner + 1);
+            System.out.printf("=== Игрок %d победил! ===\n", winner + 1);
         } else {
-            System.out.println("=== Компьютер победил! ===");
+            System.out.println("=== Компьютер победил! ===\n");
         }
     }
 
