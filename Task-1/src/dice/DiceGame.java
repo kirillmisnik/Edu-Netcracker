@@ -69,8 +69,8 @@ public class DiceGame {
      */
     private void gameRound(int round) {
         System.out.printf("=== Раунд %d ===\n\n", round);
-        int playerWinedTheRound = roundWinner();
-        updateScores(playerWinedTheRound, round);
+        int playerWonTheRound = roundWinner();
+        updateScores(playerWonTheRound, round);
     }
 
     /**
@@ -101,21 +101,21 @@ public class DiceGame {
     /**
      * Обновляет количество побед каждого игрока
      * в массиве scores.
-     * @param playerWinedTheRound индекс победившего игрока
+     * @param playerWonTheRound индекс победившего игрока
      * @param round номер раунда
      */
-    private void updateScores(int playerWinedTheRound, int round) {
-        if (playerWinedTheRound < this.n - 1) {
-            System.out.printf("Игрок %d выиграл в раунде %d!\n\n", playerWinedTheRound + 1, round);
+    private void updateScores(int playerWonTheRound, int round) {
+        if (playerWonTheRound < this.n - 1) {
+            System.out.printf("Игрок %d выиграл в раунде %d!\n\n", playerWonTheRound + 1, round);
         } else {
             System.out.printf("Компьютер выиграл в раунде %d!\n\n", round);
         }
-        int currentScore = scores[playerWinedTheRound];
-        this.scores[playerWinedTheRound] = currentScore + 1;
+        int currentScore = scores[playerWonTheRound];
+        this.scores[playerWonTheRound] = ++currentScore;
         this.order.clear();
-        this.order.add(playerWinedTheRound);
+        this.order.add(playerWonTheRound);
         for (int i = 0; i < this.n; i++) {
-            if (i != playerWinedTheRound) {
+            if (i != playerWonTheRound) {
                 this.order.add(i);
             }
         }
@@ -147,7 +147,7 @@ public class DiceGame {
         for (int i = 0; i < this.k; i++) {
             int diceRoll = rollTheDice();
             sum += diceRoll;
-            System.out.printf("Кубик %d, значение: %d\n", i + 1, rollTheDice());
+            System.out.printf("Кубик %d, значение: %d\n", i + 1, diceRoll);
         }
         return sum;
     }
