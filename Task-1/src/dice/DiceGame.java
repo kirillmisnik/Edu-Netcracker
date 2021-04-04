@@ -7,9 +7,11 @@ import java.util.*;
  * Игра в кости. Играют N игроков (компьютер в списке последний).
  * Подкидываются одновременно К кубиков.
  * Выигрывает тот, у кого большая сумма очков.
+ * Кто выиграл, тот и кидает первым в следующем кону.
  * Чтобы игроку сделать бросок, необходимо нажать
  * клавишу перехода на новую строку.
  * Игра идет до 7 выигрышей.
+ * Игру начинает Игрок 1.
  */
 public class DiceGame {
     private static final Scanner scanner = new Scanner(System.in);
@@ -25,6 +27,12 @@ public class DiceGame {
     private final int[] scores;
 
     /**
+     * Коллекция с данными о порядке
+     * ходов игроков;
+     */
+    private final ArrayDeque<Integer> order;
+
+    /**
      * Конструктор DiceGame. Принимает на вход
      * количество игроков (игроков должно быть больше нуля)
      * и количество кубиков (кубиков должно быть больше нуля).
@@ -38,6 +46,10 @@ public class DiceGame {
         this.n = n;
         this.k = k;
         this.scores = new int[n];
+        this.order = new ArrayDeque<Integer>(n);
+        for (int i = 0; i < n; i++) {
+            this.order.add(i);
+        }
     }
 
     /**
@@ -69,9 +81,9 @@ public class DiceGame {
     private int roundWinner() {
         int maxScore = 0;
         int maxScorePlayer = 0;
-        for (int i = 0; i < this.n; i++) {
-            if (i < this.n - 1) {
-                System.out.printf("Игрок %d\n------\n", i + 1);
+        for (Integer playerTurn : this.order) {
+            if (playerTurn < this.n - 1) {
+                System.out.printf("Игрок %d\n------\n", playerTurn + 1);
                 scanner.nextLine();
             } else {
                 System.out.print("Компьютер\n-----\n");
@@ -79,7 +91,7 @@ public class DiceGame {
             int score = diceSum();
             if (score > maxScore) {
                 maxScore = score;
-                maxScorePlayer = i;
+                maxScorePlayer = playerTurn;
             }
             System.out.printf("Сумма: %d\n\n", score);
         }
@@ -100,6 +112,13 @@ public class DiceGame {
         }
         int currentScore = scores[playerWinedTheRound];
         this.scores[playerWinedTheRound] = currentScore + 1;
+        this.order.clear();
+        this.order.add(playerWinedTheRound);
+        for (int i = 0; i < this.n; i++) {
+            if (i != playerWinedTheRound) {
+                this.order.add(i);
+            }
+        }
     }
 
     /**
