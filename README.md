@@ -7,7 +7,7 @@
 * Обработка строк на Java
 * Java Collection Framework
 
-#### Java SE
+#### Java SE:
 * Персистентность и сериализация
 * Java NIO2
 * Java Threads. Синхронизация потоков
