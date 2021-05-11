@@ -1,5 +1,5 @@
 # NetCracker-EduCenter
-### Java Basics &amp; Java SE &amp; SQL - Spring 2021
+### Java SE &amp; SQL - Spring 2021
 
 #### Java Basics:
 * Объектно-ориентированное программирование в Java
